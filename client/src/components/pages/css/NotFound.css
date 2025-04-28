@@ -1,0 +1,31 @@
+.main {
+  text-align: center;
+  padding: 10%;
+  background-color: "red";
+}
+
+.main h1 {
+  font-size: 60px;
+}
+
+.button a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.button {
+  display: inline-block;
+  margin-top: 50px;
+  line-height: 40px;
+  cursor: pointer;
+  padding: 0 30px;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: #88c06a;
+  border-radius: 10px;
+}

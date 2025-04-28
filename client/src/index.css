@@ -1,0 +1,19 @@
+/* Override autofill styles in Chrome and Safari */
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+    /* Background color */
+    -webkit-text-fill-color: #000 !important;
+    /* Text color */
+    caret-color: #000 !important;
+    /* Caret color */
+}
+
+/* Override autofill styles in Firefox */
+input:-moz-autofill {
+    box-shadow: 0 0 0 1000px white inset !important;
+    /* Background color */
+    -moz-text-fill-color: #000 !important;
+    /* Text color */
+    caret-color: #000 !important;
+    /* Caret color */
+}

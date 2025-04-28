@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap");
+
+/* inputs */
+input {
+  outline: none;
+  margin: 0;
+  border: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  width: 100%;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.add-inputs {
+  position: relative;
+  margin-bottom: 33px;
+  border-bottom: 1px solid rgb(208, 208, 208);
+}
+
+.inputs {
+  padding: 5px 0;
+  font-size: 16px;
+  background: transparent;
+}
+
+/* Button */
+
+.signbtn {
+  width: 100%;
+  display: block;
+  line-height: 40px;
+  padding: 0 33px;
+  cursor: pointer;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  box-shadow: 0 0 20px #eee;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-image: linear-gradient(
+    to right,
+    #76b852 0%,
+    #8dc26f 51%,
+    #76b852 100%
+  );
+  border-radius: 10px;
+}
+
+.signbtn:hover {
+  background-position: right center;
+  text-decoration: none;
+}
+
+.error-msg {
+  position: absolute;
+  color: #c80000;
+  font-size: 13px;
+  text-align: left;
+}
+
+.error-msg-icon {
+  font-size: 16px;
+  color: #c80000;
+  display: block;
+  position: absolute;
+  bottom: 30%;
+  right: 5px;
+}
+
+/* below button text */
+
+.add-inputs label {
+  position: absolute;
+  pointer-events: none;
+  transform-origin: top left;
+  transition: 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  color: rgb(118, 118, 118);
+  font-size: 16px;
+  line-height: 1;
+}
+
+.add-inputs:focus-within label {
+  transform: translate(0, -12px) scale(0.8);
+  color: #000;
+}
+
+.add-inputs .filled {
+  transform: translate(0, -12px) scale(0.8);
+}
+
+.input-redline {
+  border: none;
+  border-bottom: 1px solid #ff2525;
+}

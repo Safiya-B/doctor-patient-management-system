@@ -1,0 +1,13 @@
+.divContainer {
+  display: flex;
+}
+
+.mainContainer {
+  flex-grow: 1;
+  padding: 24px;
+  height: 100vh;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

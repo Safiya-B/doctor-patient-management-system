@@ -1,0 +1,78 @@
+{
+  "name": "doctor-patient-management",
+  "version": "1.0.0",
+  "description": "Doctor patient management application",
+  "main": "index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "eject": "react-scripts eject"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@date-io/date-fns": "^3.0.0",
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@fontsource/roboto": "^5.0.13",
+    "@fullcalendar/core": "^6.1.15",
+    "@fullcalendar/daygrid": "^6.1.15",
+    "@fullcalendar/interaction": "^6.1.15",
+    "@fullcalendar/react": "^6.1.15",
+    "@fullcalendar/timegrid": "^6.1.15",
+    "@mui/icons-material": "^5.16.5",
+    "@mui/lab": "^5.0.0-alpha.173",
+    "@mui/material": "^5.16.5",
+    "@mui/system": "^5.16.5",
+    "@mui/x-data-grid": "^7.21.0",
+    "@mui/x-date-pickers": "^7.11.1",
+    "@react-pdf/renderer": "^3.4.4",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react-hooks": "^8.0.1",
+    "axios": "^1.7.2",
+    "date-fns": "^3.6.0",
+    "install": "^0.13.0",
+    "moment": "^2.30.1",
+    "npm": "^10.8.2",
+    "pdf-lib": "^1.17.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-dropzone": "^14.3.5",
+    "react-icons": "^5.2.1",
+    "react-media-recorder": "^1.6.6",
+    "react-pdf": "^9.1.1",
+    "react-router-dom": "^6.25.1",
+    "react-scripts": "^5.0.1",
+    "react-spinners": "^0.14.1",
+    "react-toastify": "^10.0.5",
+    "react-webcam": "^7.2.0",
+    "sweetalert2": "^11.12.3",
+    "twilio-video": "^2.28.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.14.0",
+    "@testing-library/react": "^14.2.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/ui": "^2.1.8",
+    "eslint": "^8.57.1",
+    "eslint-plugin-react": "^7.37.2",
+    "globals": "^15.12.0",
+    "jsdom": "^24.0.0",
+    "vitest": "^2.1.8"
+  }
+}
