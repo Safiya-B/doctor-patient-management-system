@@ -49,9 +49,6 @@ const PatientsList = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  if (loading) {
-    return <Loading />;
-  }
   const filteredUsers = users.filter((user) =>
     `${user.firstName} ${user.lastName}`
       .toLowerCase()
@@ -62,6 +59,9 @@ const PatientsList = () => {
     page * rowsPerPage + rowsPerPage
   );
 
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <Box
       sx={{

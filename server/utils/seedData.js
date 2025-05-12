@@ -1,3 +1,5 @@
+const { Appointments } = require("../models/Appointments");
+const File = require("../models/Files");
 const User = require("../models/Users");
 
 const users = [
@@ -58,6 +60,7 @@ const users = [
 exports.seedData = async () => {
   try {
     await User.deleteMany({});
+    await File.deleteMany({});
 
     for (let i = 0; i < users.length; i++) {
       await users[i].save();

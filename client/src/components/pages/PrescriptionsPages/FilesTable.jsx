@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -12,6 +11,7 @@ import {
   Box,
 } from "@mui/material";
 import { getFileIcon } from "../utils/fileIconsHelper";
+import axios from "../../../api/axios";
 
 const FilesTable = ({
   files,
@@ -21,6 +21,16 @@ const FilesTable = ({
   isIndeterminate,
   handleSelectAll,
 }) => {
+  const handleDownload = async (fileId) => {
+    try {
+      const { data } = await axios.get(`/api/files/download/${fileId}`);
+
+      window.open(data.url, "_blank");
+    } catch (error) {
+      console.error("Download failed:", error);
+    }
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table size="small">
@@ -53,9 +63,12 @@ const FilesTable = ({
                     onChange={() => handleSelectedItem(file._id)}
                   />
                 </TableCell>
-                <TableCell sx={{ display: "flex", gap: 2 }}>
+                <TableCell
+                  sx={{ display: "flex", alignItems: "center", gap: 2 }}
+                >
                   <Box>{getFileIcon(file.fileName)}</Box>
                   <Typography
+                    onClick={() => handleDownload(file._id)}
                     variant="subtitle2"
                     sx={{
                       cursor: "pointer",

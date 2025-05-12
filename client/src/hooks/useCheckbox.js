@@ -3,11 +3,6 @@ import { useEffect, useState } from "react";
 const useCheckbox = (items) => {
   const [selectedItems, setSelectedItems] = useState([]);
 
-  useEffect(() => {
-    console.log("ITEMS", items);
-    console.log("SELECTEDITEMS", selectedItems);
-  }, [selectedItems]);
-
   const handleSelectedItem = (id) => {
     setSelectedItems((prev) =>
       prev.includes(id) ? prev.filter((itemId) => itemId !== id) : [...prev, id]

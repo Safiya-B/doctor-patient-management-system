@@ -5,7 +5,7 @@ const useDeleteItems = (endPoint) => {
   const handleDelete = async (
     selectedItems,
     setOpen,
-    fetchFiles,
+    fetchItems,
     clearSelection
   ) => {
     try {
@@ -13,9 +13,10 @@ const useDeleteItems = (endPoint) => {
         data: { ids: selectedItems },
       });
 
-      toast.success(data.success);
+      console.log(data);
+      toast.success(data.message);
       setOpen(false);
-      fetchFiles();
+      fetchItems();
       clearSelection();
     } catch (error) {
       toast.error(error.response.data.error || "cannot delete items");

@@ -14,7 +14,7 @@ const upload = require("../middlewares/filesUpload");
 router.route("/").get(verifyRole, GetFiles).delete(verifyRole, DeleteFiles);
 
 router.post("/upload", verifyRole, upload.array("files", 10), UploadFiles);
-router.route("/:folderName/:fileName").get(verifyRole, DownloadFile);
+router.route("/download/:fileId").get(verifyRole, DownloadFile);
 
 router.get("/:fileName", DownloadUserFile);
 

@@ -2,10 +2,11 @@ const User = require("../models/Users");
 const File = require("../models/Files");
 const ErrorResponse = require("../utils/ErrorResponse");
 const sanitizeFilename = require("sanitize-filename");
-const { uploadFileToS3 } = require("../utils/s3Utils");
-
-const { DeleteObjectsCommand } = require("@aws-sdk/client-s3");
-const s3 = require("../config/awsClient");
+const {
+  uploadFileToS3,
+  deleteS3Object,
+  generateS3Url,
+} = require("../utils/s3Utils");
 
 exports.UploadFiles = async (req, res, next) => {
   try {
@@ -75,12 +76,13 @@ exports.GetFiles = async (req, res, next) => {
 };
 
 exports.DownloadFile = async (req, res, next) => {
+  const file = await File.findById(req.params.fileId);
+
+  if (!file) return next(new ErrorResponse("File not found", 400));
+
   try {
-    const url = await s3.getSignedUrlPromise("getObject", {
-      Bucket: process.env.BUCKET_NAME,
-      Key: "Patients/" + req.params.folderName + "/" + req.params.fileName,
-      Expires: 60,
-    });
+    const url = await generateS3Url(file.filePath);
+
     res.json({ url });
   } catch (error) {
     return next(error);
@@ -115,66 +117,18 @@ exports.DeleteFiles = async (req, res, next) => {
 
     await File.deleteMany({ _id: { $in: ids } });
 
+    // Delete from s3
+
     const keys = files.map((file) => ({ Key: file.filePath }));
 
-    res.json({
-      success: "Files deleted successfully.",
+    const { Deleted } = await deleteS3Object(keys);
+
+    res.status(200).json({
+      success: true,
+      message: "Files deleted successfully",
+      deletedFiles: Deleted,
     });
   } catch (error) {
     return next(error);
   }
-
-  /*  try {
-    const { Deleted } = await s3.send(
-      new DeleteObjectsCommand({
-        Bucket: process.env.BUCKET_NAME,
-        Delete: {
-          Objects: files.map((fileId) => ({ Key: k })),
-        },
-      })
-    );
-  } catch (error) {
-    
-  } */
-
-  /* const userID = req.params.folderName.split("_")[0];
-  const filePath =
-    "Patients/" + req.params.folderName + "/" + req.params.fileName;
-  const params = {
-    Bucket: process.env.BUCKET_NAME,
-    Key: filePath,
-  };
-
-  s3.deleteObject(params, function (err, data) {
-    if (err) console.log(err);
-    else console.log(data);
-  });
-
-  // if there is only 1 file left on the folder, delete the folder
-
-  try {
-    const user = await User.findOne({ _id: userID });
-
-    if (!user) return next(new ErrorResponse("no user", 404));
-    // if there is only 1 file left in the folder, delete the folder
-
-    if (user.filesList.length === 1) {
-      const folderPath = "Patients/" + req.params.folderName;
-      const folderParams = {
-        Bucket: process.env.BUCKET_NAME,
-        Key: folderPath,
-      };
-      s3.deleteObject(folderParams, function (err, data) {
-        if (err) console.log(err);
-        else console.log(data);
-      });
-    }
-    user.filesList.pull(filePath);
-    await user.save();
-    return res.json({
-      success: `Le fichier a bien été supprimé`,
-    });
-  } catch (error) {
-    return next(error);
-  } */
 };

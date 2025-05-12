@@ -1,8 +1,12 @@
 const {
   PutObjectCommand,
-  DeleteObjectCommand,
-  ListObjectsV2Command,
+  DeleteObjectsCommand,
+  GetObjectCommand,
 } = require("@aws-sdk/client-s3");
+const {
+  getSignedUrl,
+  S3RequestPresigner,
+} = require("@aws-sdk/s3-request-presigner");
 const s3 = require("../config/awsClient");
 
 const uploadFileToS3 = async (fileBuffer, filePath, mimetype) => {
@@ -23,53 +27,36 @@ const uploadFileToS3 = async (fileBuffer, filePath, mimetype) => {
   }
 };
 
-async function deleteS3Object(filePath) {
-  const params = { Bucket: process.env.BUCKET_NAME, Key: filePath };
-  const command = new DeleteObjectCommand(params);
+const deleteS3Object = async (filesPath) => {
+  const params = {
+    Bucket: process.env.BUCKET_NAME,
+    Delete: {
+      Objects: filesPath,
+    },
+  };
+  const command = new DeleteObjectsCommand(params);
 
   try {
     const response = await s3.send(command);
-    console.log(`Deleted object: ${key}`);
+
     return response;
   } catch (error) {
     console.error(`Error deleting object: ${error.message}`);
     throw error;
   }
-}
+};
 
-// Function to check if a folder in S3 is empty
-async function isFolderEmpty(bucketName, prefix) {
-  const params = { Bucket: bucketName, Prefix: prefix };
-  const command = new ListObjectsV2Command(params);
+const generateS3Url = async (filePath) => {
+  const params = { Bucket: process.env.BUCKET_NAME, Key: filePath };
+  const command = new GetObjectCommand(params);
 
-  try {
-    const data = await s3.send(command);
-    const isEmpty = !(data && data.Contents && data.Contents.length > 0);
-    return isEmpty;
-  } catch (error) {
-    console.error(`Error listing objects: ${error.message}`);
-    throw error;
-  }
-}
+  const url = await getSignedUrl(s3, command, { expiresIn: 60 });
 
-// Function to delete a folder from S3
-async function deleteS3Folder(bucketName, folderPath) {
-  const params = { Bucket: bucketName, Key: folderPath };
-  const command = new DeleteObjectCommand(params);
-
-  try {
-    const response = await s3.send(command);
-    console.log(`Deleted folder: ${folderKey}`);
-    return response;
-  } catch (error) {
-    console.error(`Error deleting folder: ${error.message}`);
-    throw error;
-  }
-}
+  return url;
+};
 
 module.exports = {
   uploadFileToS3,
   deleteS3Object,
-  isFolderEmpty,
-  deleteS3Folder,
+  generateS3Url,
 };
