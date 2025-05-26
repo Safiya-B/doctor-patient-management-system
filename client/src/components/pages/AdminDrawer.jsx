@@ -13,7 +13,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
-import { useTheme, useMediaQuery, Paper, Toolbar } from "@mui/material";
+import { useTheme, useMediaQuery, Toolbar } from "@mui/material";
 import { green } from "@mui/material/colors";
 import {
   FiVideo,
@@ -115,30 +115,47 @@ function AdminDrawer({ window }) {
           </Stack>
         </Stack>
         <Divider />
-        <List>
-          {navItems.map((item) => (
-            <ListItemButton
-              key={item.text}
-              onClick={() => navigate(item.route)}
-              selected={
-                location.pathname ===
-                (item.route ? `/dashboard/${item.route}` : `/dashboard`)
-              }
-              sx={{
-                pl: 2,
-                margin: "10px",
-                gap: 2,
-                pr: 1.5,
-                borderRadius: 0.75,
-                fontWeight: 500,
-              }}
-            >
-              <Box component="span">{item.icon}</Box>
-              <Box component="span" flexGrow={1}>
-                {item.text}
-              </Box>
-            </ListItemButton>
-          ))}
+        <List
+          sx={{
+            "& .MuiListItemButton-root": {
+              transition: (theme) =>
+                theme.transitions.create("background-color", {
+                  duration: theme.transitions.duration.standard,
+                  easing: theme.transitions.easing.easeIn,
+                }),
+              "&:hover": { bgcolor: "primary.main" },
+            },
+          }}
+        >
+          {navItems.map((item) => {
+            const isSelected =
+              location.pathname ===
+              (item.route ? `/dashboard/${item.route}` : `/dashboard`);
+            return (
+              <ListItemButton
+                key={item.text}
+                onClick={() => navigate(item.route)}
+                selected={isSelected}
+                sx={{
+                  pl: 2,
+                  margin: "10px",
+                  gap: 2,
+                  pr: 1.5,
+                  borderRadius: 0.75,
+                  fontWeight: 500,
+                  "&.Mui-selected": {
+                    bgcolor: "primary.main",
+                    "&:hover": { bgcolor: "primary.main" },
+                  },
+                }}
+              >
+                <Box component="span">{item.icon}</Box>
+                <Box component="span" flexGrow={1}>
+                  {item.text}
+                </Box>
+              </ListItemButton>
+            );
+          })}
         </List>
       </Box>
       <List>

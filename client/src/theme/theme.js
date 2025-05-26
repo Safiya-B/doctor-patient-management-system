@@ -27,22 +27,6 @@ const theme = createTheme({
       },
     },
 
-    /*  MuiListItemButton: {
-      styleOverrides: {
-        root: {
-          "&.Mui-selected": {
-            backgroundColor: palette.primary.main,
-          },
-          "&.Mui-selected:hover": {
-            backgroundColor: palette.primary.dark,
-          },
-          "&:hover": {
-            backgroundColor: "#2d333b",
-          },
-        },
-      },
-    }, */
-
     MuiDivider: {
       styleOverrides: {
         root: {

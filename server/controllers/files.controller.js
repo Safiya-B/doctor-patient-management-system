@@ -75,13 +75,38 @@ exports.GetFiles = async (req, res, next) => {
   }
 };
 
-exports.DownloadFile = async (req, res, next) => {
+exports.DownloadS3File = async (req, res, next) => {
   const file = await File.findById(req.params.fileId);
 
   if (!file) return next(new ErrorResponse("File not found", 400));
 
   try {
     const url = await generateS3Url(file.filePath);
+
+    res.json({ url });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+exports.GetPrescriptionAsset = async (req, res, next) => {
+  const { type } = req.query;
+
+  const assetMap = {
+    template: "Templates/prescription-template.pdf",
+    signature: "Templates/signature.png",
+  };
+
+  if (!assetMap[type])
+    return next(
+      new ErrorResponse(
+        "Invalid asset type. Allowed: 'template' or 'signature'",
+        400
+      )
+    );
+
+  try {
+    const url = await generateS3Url(assetMap[type]);
 
     res.json({ url });
   } catch (error) {

@@ -52,7 +52,7 @@ const AddPrescription = ({
       formData.append("userId", userId); // Add the userId from props
 
       // Backend API call for uploading files
-      const response = await axios.post("/api/files/upload", formData, {
+      const response = await axios.post("/api/files", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

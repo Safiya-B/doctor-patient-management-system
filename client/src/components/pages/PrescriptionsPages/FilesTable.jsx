@@ -23,7 +23,7 @@ const FilesTable = ({
 }) => {
   const handleDownload = async (fileId) => {
     try {
-      const { data } = await axios.get(`/api/files/download/${fileId}`);
+      const { data } = await axios.get(`/api/files/${fileId}`);
 
       window.open(data.url, "_blank");
     } catch (error) {
