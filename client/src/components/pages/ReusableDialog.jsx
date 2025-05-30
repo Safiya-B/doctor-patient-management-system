@@ -8,6 +8,7 @@ import {
   Box,
 } from "@mui/material";
 const ReusableDialog = ({
+  dialogView,
   open,
   onClose,
   onGoBack,
@@ -19,7 +20,12 @@ const ReusableDialog = ({
   showGoBack,
 }) => {
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
+    <Dialog
+      open={open}
+      onClose={onClose}
+      fullWidth
+      maxWidth={dialogView === "edit" ? "md" : "sm"}
+    >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent dividers>{children}</DialogContent>
       {cancelText && submitText && (

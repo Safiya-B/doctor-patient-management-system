@@ -77,6 +77,7 @@ const AddPrescription = ({
         open={open}
         onClose={handleClose}
         title={`Add prescription for ${firstName} ${lastName}`}
+        dialogView={dialogView}
         cancelText={dialogView !== "home" && "Cancel"}
         submitText={dialogView !== "home" && "Submit"}
         showGoBack={dialogView !== "home"}
